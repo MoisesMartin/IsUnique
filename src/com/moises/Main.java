@@ -9,34 +9,44 @@ public class Main {
   */
 
     public static String stringInput="";
+    public static ArrayList<Character> repeatedChars = new ArrayList<>();
     public static void main(String[] args) {
 	// write your code here
         Scanner userInput = new Scanner(System.in);
         System.out.println("Write something: ");
-        stringInput = userInput.next();
+        stringInput = userInput.nextLine();
 
         if(isUnique(stringInput)){
             System.out.println("True: Todos los caracteres son distintos");
         }else{
-            System.out.println("False: hay caracteres repetidos");
+            System.out.println("False: hay "+repeatedChars.size() +" caracteres repetidos, :");
+            for (Character ch:repeatedChars) {
+                System.out.print(ch+" ");
+            }
         }
     }
 
     public static boolean isUnique(String input){
         ArrayList<Character> e = convertString(input);
+
+
         int currIndex=0, nextIndex=currIndex+1,count=0;
         for(int i=0; i<e.size();i++){
             currIndex = i;
             nextIndex = i+1;
             try{
                 if(e.get(currIndex) == e.get(nextIndex)){
-                    count++;
+                   char tempChar = e.get(currIndex);
+                    if(!repeatedChars.contains(tempChar)){
+                        count++;
+                        repeatedChars.add(tempChar);
+                    }
                 }
             }catch (Exception x) {
                 nextIndex = e.size();
             }
         }
-        System.out.println("Count: "+count);
+
        if(count > 0){
            return false;
        }else{
@@ -50,7 +60,7 @@ public class Main {
         }
         Collections.sort(c);
         for (Character val:c) {
-            System.out.println(val);
+            System.out.print(val);
         }
         return c;
     }
