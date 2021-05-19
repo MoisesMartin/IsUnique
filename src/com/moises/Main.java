@@ -1,4 +1,6 @@
 package com.moises;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -15,12 +17,12 @@ public class Main {
         Scanner userInput = new Scanner(System.in);
         System.out.println("Write something: ");
         stringInput = userInput.nextLine();
-
+        stringInput.trim();
         if(isUnique(stringInput)){
-            System.out.println("True: Todos los caracteres son distintos");
+            System.out.println("True: The string has all unique characters");
         }else{
-            System.out.println("False: hay "+repeatedChars.size() +" caracteres repetidos, :");
-            for (Character ch:repeatedChars) {
+            System.out.println("False: There are "+repeatedChars.size() +" repeated characters: ");
+           for (Character ch:repeatedChars) {
                 System.out.print(ch+" ");
             }
         }
@@ -28,7 +30,6 @@ public class Main {
 
     public static boolean isUnique(String input){
         ArrayList<Character> e = convertString(input);
-
 
         int currIndex=0, nextIndex=currIndex+1,count=0;
         for(int i=0; i<e.size();i++){
@@ -53,15 +54,20 @@ public class Main {
            return true;
        }
     }
-    public static ArrayList<Character> convertString(String in){
+    public static @NotNull
+    ArrayList<Character> convertString(String in){
+
         ArrayList<Character> c = new ArrayList<>();
         for(int a=0;a<in.length();a++){
-            c.add(in.charAt(a));
+            if(in.charAt(a) != ' '){
+                c.add(in.charAt(a));
+            }
         }
         Collections.sort(c);
         for (Character val:c) {
             System.out.print(val);
         }
+        System.out.println("");
         return c;
     }
 }
